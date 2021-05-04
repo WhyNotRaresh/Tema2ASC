@@ -29,6 +29,7 @@ double* my_solver(int N, double *A, double* B) {
 			}
 		}
 	}
+	free(S1);
 
 	/* C += A * At */
 	for (i = 0; i < N; i++) {
