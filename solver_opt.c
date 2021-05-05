@@ -16,9 +16,10 @@ double* my_solver(int N, double *A, double* B) {
 	for (i = 0; i < N; i++) {
 		double *line_ptr_B = B + i * N;
 		for (k = 0; k < N; k++) {
+			double b = line_ptr_B[k];
+			double elem = b * b;
 			for (j = 0; j < N; j++) {
-				double b = line_ptr_B[k];
-				S1[i * N + j] += b * b;
+				S1[i * N + j] += elem;
 			}
 		}
 	}
@@ -27,8 +28,10 @@ double* my_solver(int N, double *A, double* B) {
 	for (i = 0; i < N; i++) {
 		double *line_ptr_A = A + i * N;
 		for (k = i; k < N; k++){
+			double elem_A = line_ptr_A[k];
+			double *line_ptr_S1 = S1 + k * N;
 			for (j = 0; j < N; j++){
-				C[i * N + j] += line_ptr_A[k] * S1[k * N + j];
+				C[i * N + j] += elem_A * line_ptr_S1[j];
 			}
 		}
 	}
@@ -38,9 +41,10 @@ double* my_solver(int N, double *A, double* B) {
 	for (i = 0; i < N; i++) {
 		double *line_ptr_A = A + i * N;
 		for (k = i; k < N; k++){
+			double a = line_ptr_A[k];
+			double elem = a * a;
 			for (j = 0; j < N; j++){
-				double a = line_ptr_A[k];
-				C[i * N + j] += a * a;
+				C[i * N + j] += elem;
 			}
 		}
 	}
