@@ -12,7 +12,7 @@ double* my_solver(int N, double *A, double *B) {
 	double *C = calloc(N * N, sizeof(double));
 
 	cblas_dcopy(N * N, B, 1, AB, 1);
-	cblas_dtrmm(CblasRowMajor, CblasLeft, CblasUpper, CblasNoTrans, CblasNonUnit,
+	cblas_dtrmm(CblasRowMajor,CblasLeft, CblasUpper, CblasNoTrans, CblasNonUnit,
 		N, N, 1.0, A, N, AB, N);
 
 	cblas_dgemm(CblasRowMajor, CblasTrans, CblasNoTrans, N, N, N, 1.0, A, N,
