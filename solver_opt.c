@@ -34,7 +34,7 @@ double* my_solver(int N, double *A, double* B) {
 		double *line_ptr_A = A + i * N;
 		for (j = 0; j < N; j++){
 			double *line_ptr_A_copy = line_ptr_A + i;
-			double *col_ptr_S1 = S1 + j;
+			double *col_ptr_S1 = S1 + i * N + j;
 			register double sum = 0;
 			for (k = i; k < N; k++){
 				sum += *line_ptr_A_copy * *col_ptr_S1;
