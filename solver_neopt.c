@@ -16,7 +16,7 @@ double* my_solver(int N, double *A, double* B) {
 	for (i = 0; i < N; i++) {
 		for (j = 0; j < N; j++){
 			for (k = 0; k < N; k++){
-				S1[i * N + j] += B[i * N + k] * B[i * N + k];
+				S1[i * N + j] += B[i * N + k] * B[j * N + k];
 			}
 		}
 	}
@@ -35,7 +35,7 @@ double* my_solver(int N, double *A, double* B) {
 	for (i = 0; i < N; i++) {
 		for (j = 0; j < N; j++){
 			for (k = i; k < N; k++){
-				C[i * N + j] += A[i * N + k] * A[i * N + k];
+				C[i * N + j] += A[i * N + k] * A[j * N + k];
 			}
 		}
 	}
