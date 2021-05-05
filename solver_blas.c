@@ -9,17 +9,18 @@
  */
 double* my_solver(int N, double *A, double *B) {
 	double *AB = calloc(N * N, sizeof(double));
-	double *AtA = calloc(N * N, sizeof(double));
-	
+	double *C = calloc(N * N, sizeof(double));
+
 	cblas_dcopy(N * N, B, 1, AB, 1);
 	cblas_dtrmm(CblasRowMajor, CblasLeft, CblasUpper, CblasNoTrans, CblasNonUnit,
-	N, N, 1.0, A, N, AB, N);
+		N, N, 1.0, A, N, AB, N);
 
 	cblas_dgemm(CblasRowMajor, CblasTrans, CblasNoTrans, N, N, N, 1.0, A, N,
-	A, N, 1.0, AtA, N);
+		A, N, 1.0, C, N);
 
 	cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasTrans, N, N, N, 1.0, AB, N,
-	B, N, 1.0, AtA, N);
+		B, N, 1.0, C, N);
 
-	return AtA;
+	free(AB);
+	return C;
 }
