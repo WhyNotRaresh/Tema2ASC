@@ -8,7 +8,7 @@
  * Add your unoptimized implementation here
  */
 double* my_solver(int N, double *A, double* B) {
-	double *C = (double *) calloc(N * N, sizeof(double));
+	double *C = (double *) malloc(N * N * sizeof(double));
 	int i, j, k;
 
 	/* S1 = B * Bt */
@@ -25,7 +25,7 @@ double* my_solver(int N, double *A, double* B) {
 	for (i = 0; i < N; i++) {
 		for (j = 0; j < N; j++){
 			for (k = i; k < N; k++){
-				C[i * N + j] += A[i * N + k] * S1[k * N + j];
+				C[i * N + j] = A[i * N + k] * S1[k * N + j];
 			}
 		}
 	}
@@ -35,7 +35,7 @@ double* my_solver(int N, double *A, double* B) {
 	for (i = 0; i < N; i++) {
 		for (j = 0; j < N; j++){
 			for (k = i; k < N; k++){
-				C[i * N + j] += A[i * N + k] * A[j * N + k];
+				C[i * N + j] += A[i * N + k] * A[i * N + k];
 			}
 		}
 	}

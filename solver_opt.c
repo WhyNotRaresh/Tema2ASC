@@ -8,7 +8,7 @@
  * Add your optimized implementation here
  */
 double* my_solver(int N, double *A, double* B) {
-	double *C = (double *) calloc(N * N, sizeof(double));
+	double *C = (double *) malloc(N * N * sizeof(double));
 	int i, j, k;
 
 	/* S1 = B * Bt */
@@ -36,7 +36,7 @@ double* my_solver(int N, double *A, double* B) {
 				line_ptr_A_copy++;
 				col_ptr_S1 += N;
 			}
-			C[i * N + j] += sum;
+			C[i * N + j] = sum;
 		}
 	}
 	free(S1);
