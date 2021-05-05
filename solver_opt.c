@@ -27,12 +27,16 @@ double* my_solver(int N, double *A, double* B) {
 	/* C = A * S1 */
 	for (i = 0; i < N; i++) {
 		double *line_ptr_A = A + i * N;
-		for (k = i; k < N; k++){
-			double elem_A = line_ptr_A[k];
-			double *line_ptr_S1 = S1 + k * N;
-			for (j = 0; j < N; j++){
-				C[i * N + j] += elem_A * line_ptr_S1[j];
+		for (j = 0; j < N; j++){
+			double *line_ptr_A_copy = line_ptr_A + i;
+			double *col_ptr_S1 = S1 + j;
+			register double sum = 0;
+			for (k = i; k < N; k++){
+				sum += *line_ptr_A_copy * *col_ptr_S1;
+				line_ptr_A_copy++;
+				col_ptr_S1 += N;
 			}
+			C[i * N + j] += sum;
 		}
 	}
 	free(S1);
