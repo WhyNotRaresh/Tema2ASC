@@ -14,9 +14,10 @@ double* my_solver(int N, double *A, double* B) {
 	/* S1 = B * Bt */
 	double *S1 = (double *) calloc(N * N, sizeof(double));
 	for (i = 0; i < N; i++) {
+		double *line_ptr_B = B + i * N;
 		for (k = 0; k < N; k++) {
 			for (j = 0; j < N; j++) {
-				double b = B[i * N + k];
+				double b = line_ptr_B[k];
 				S1[i * N + j] += b * b;
 			}
 		}
@@ -24,9 +25,10 @@ double* my_solver(int N, double *A, double* B) {
 
 	/* C = A * S1 */
 	for (i = 0; i < N; i++) {
+		double *line_ptr_A = A + i * N;
 		for (k = i; k < N; k++){
 			for (j = 0; j < N; j++){
-				C[i * N + j] += A[i * N + k] * S1[k * N + j];
+				C[i * N + j] += line_ptr_A[k] * S1[k * N + j];
 			}
 		}
 	}
@@ -34,9 +36,10 @@ double* my_solver(int N, double *A, double* B) {
 
 	/* C += A * At */
 	for (i = 0; i < N; i++) {
+		double *line_ptr_A = A + i * N;
 		for (k = i; k < N; k++){
 			for (j = 0; j < N; j++){
-				double a = A[i * N + k];
+				double a = line_ptr_A[k];
 				C[i * N + j] += a * a;
 			}
 		}
