@@ -17,8 +17,8 @@ double* my_solver(int N, double *A, double* B) {
 	for (i = 0; i < N; i++) {
 		double *line_ptr_B = B + i * N;
 		for (j = 0; j < N; j++){
-			double *line_ptr_B_copy = line_ptr_B;
-			double *line_ptr_Bt = B + j * N;
+			register double *line_ptr_B_copy = line_ptr_B;
+			register double *line_ptr_Bt = B + j * N;
 			register double sum = 0;
 			for (k = 0; k < N; k++){
 				sum += *line_ptr_B_copy * *line_ptr_Bt;
@@ -33,8 +33,8 @@ double* my_solver(int N, double *A, double* B) {
 	for (i = 0; i < N; i++) {
 		double *line_ptr_A = A + i * N;
 		for (j = 0; j < N; j++){
-			double *line_ptr_A_copy = line_ptr_A + i;
-			double *col_ptr_S1 = S1 + i * N + j;
+			register double *line_ptr_A_copy = line_ptr_A + i;
+			register double *col_ptr_S1 = S1 + i * N + j;
 			register double sum = 0;
 			for (k = i; k < N; k++){
 				sum += *line_ptr_A_copy * *col_ptr_S1;
@@ -48,8 +48,8 @@ double* my_solver(int N, double *A, double* B) {
 
 	/* C += A * At */
 	for (i = 0; i < N; i++) {
-		for (k = 0; k <= i; k++) {
-			for (j = 0; j < N; j++){
+		for (j = 0; j < N; j++){
+			for (k = 0; k <= MIN(i, j); k++) {
 				C[i * N + j] += A[k * N + i] * A[k * N + j];
 			}
 		}
