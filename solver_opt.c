@@ -9,11 +9,11 @@
  * Add your unoptimized implementation here
  */
 double* my_solver(int N, double *A, double* B) {
-	double *C = (double *) malloc(N * N * sizeof(double));
+	double *C = (double *) calloc(N * N, sizeof(double));
 	int i, j, k;
 
 	/* S1 = B * Bt */
-	double *S1 = (double *) malloc(N * N * sizeof(double));
+	double *S1 = (double *) calloc(N * N, sizeof(double));
 	for (i = 0; i < N; i++) {
 		double *line_ptr_B = B + i * N;
 		for (j = 0; j < N; j++){
@@ -48,16 +48,10 @@ double* my_solver(int N, double *A, double* B) {
 
 	/* C += A * At */
 	for (i = 0; i < N; i++) {
-		for (j = 0; j < N; j++){
-			double *col_ptr_A = A + j;
-			double *col_ptr_At = A + i;
-			register double sum = 0;
-			for (k = 0; k <= MIN(i, j); k++){
-				sum += *col_ptr_At * *col_ptr_A;
-				col_ptr_A += N;
-				col_ptr_At += N;
+		for (k = 0; k <= i; k++){
+			for (j = 0; j < N; j++){
+				C[i * N + j] += A[k * N + i] * A[k * N + j];
 			}
-			C[i * N + j] += sum;
 		}
 	}
 
