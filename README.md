@@ -6,14 +6,14 @@ Grupa: 333CB
 Organizare
 -
 
-### Solutia Neoptizata
-
-Atat pentru solutia neoptimizata cat si pentru cea optimizata procedeul de calul decurge astfel:
+Pentru toate cele 3 solutiile se folosesc urmatoarele inmultiri:
 ```
 S1 = B * Bt;
 C = A * S1;
 C += At * A;
 ```
+
+### Solutia Neoptizata
 
 Se tine cont de faptul ca A este superor triangulata si At este inferior triangulata la ultimele 2 inmultiri.
 
@@ -27,13 +27,15 @@ Doar primele 2 inmultiri sunt optimizate, cea de-a 3a este la fel ca in varianta
 
 ### Solutia Blas
 
-
+Folosesc functia ```cblas_dgemm``` petru a calula inmultiri de prima si ultima inmultire.
+Pentur inmultirea cu A folosesc funtia ```cblas_dtrmm``` pentru ca este mai eficineta (functie speciala pentru matrici superior trinagulate.
 
 Implementare
 -
 
 * Tema este realizata integral.
 * Pentru solutia optimizata am un timp de 11.8 secunde pentru testul de N=1200.
+* Sunt incluse si fisierele de memorie pentru valgrind.
 
 
 Resurse Utile
