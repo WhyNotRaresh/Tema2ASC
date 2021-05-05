@@ -31,10 +31,17 @@ double* my_solver(int N, double *A, double* B) {
 
 	/* C = A * S1 */
 	for (i = 0; i < N; i++) {
+		double *line_ptr_A = A + i * N;
 		for (j = 0; j < N; j++){
+			double *line_ptr_A_copy = line_ptr_A + i;
+			double *col_ptr_S1 = S1 + j;
+			register double sum = 0;
 			for (k = i; k < N; k++){
-				C[i * N + j] += A[i * N + k] * S1[k * N + j];
+				sum += *line_ptr_A_copy * *col_ptr_S1;
+				line_ptr_A_copy++;
+				col_ptr_S1 += N;
 			}
+			C[i * N + j] = sum;
 		}
 	}
 	free(S1);
