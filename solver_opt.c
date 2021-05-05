@@ -9,7 +9,7 @@
  * Add your unoptimized implementation here
  */
 double* my_solver(int N, double *A, double* B) {
-	double *C = (double *) malloc(N * N * sizeof(double));
+	double *C = (double *) calloc(N * N, sizeof(double));
 	int i, j, k;
 
 	/* S1 = B * Bt */
